@@ -2,6 +2,8 @@
 
 ## New Azure stuff
 
+
+```
 {
 			"name": "Return All Service Principals with MS Graph App Role Assignments",
 			"category": "Azure",
@@ -34,4 +36,5 @@
 					"allowCollapse": true
 				}
 			]
-		}
+		},
+```
