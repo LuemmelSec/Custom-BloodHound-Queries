@@ -42,7 +42,7 @@
 ```
 
 
-### Service Principal / Managed Identity related
+### Service Principal / Managed Identity related 
 
 ```
 {
