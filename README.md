@@ -137,6 +137,39 @@
 				}
 			]
 		},
+		{
+			"name": "Return all VMs with a tied Managed Identity",
+			"category": "Azure - Service Principals",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p=(:AZVM)-[:AZManagedIdentity]->(n) RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
+		{
+			"name": "Return all Service Principals that are a Managed Identity an have a path to a Key Vault",
+			"category": "Azure - Service Principals",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p=(:AZVM)-[:AZManagedIdentity]->(n) RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
+		{
+			"name": "Return paths from Managed Identities tied to a VM with a path to a Key Vault",
+			"category": "Azure - Service Principals",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p1 = (:AZVM)-[:AZManagedIdentity]->(n) WITH collect(n) AS managedIdentities MATCH p2 = (m:AZServicePrincipal {serviceprincipaltype: 'ManagedIdentity'})-[*]->(kv:AZKeyVault) WHERE m IN managedIdentities RETURN p2",
+					"allowCollapse": true
+				}
+			]
+		},
 
 ```
 
