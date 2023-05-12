@@ -2,13 +2,29 @@
 
 ## New Azure stuff
 
+### General stuff
+
+```
+{
+			"name": "Shortest Path from Owned Azure Users to Azure VMs",
+			"category": "Azure",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (n:AZVM) MATCH p = shortestPath((m:AZUser{owned: true})-[*..]->(n)) RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
+```
+
 ### MS Graph related
 
 
 ```
 {
 			"name": "Return All Service Principals with MS Graph App Role Assignments",
-			"category": "Azure",
+			"category": "Azure - MS Graph",
 			"queryList": [
 				{
 					"final": true,
@@ -19,7 +35,7 @@
 		},
 		{
 			"name": "Return all direct controllers of MS Graph",
-			"category": "Azure",
+			"category": "Azure - MS Graph",
 			"queryList": [
 				{
 					"final": true,
@@ -30,7 +46,7 @@
 		},
 		{
 			"name": "Find shortest paths to MS Graph",
-			"category": "Azure",
+			"category": "Azure - MS Graph",
 			"queryList": [
 				{
 					"final": true,
@@ -46,8 +62,18 @@
 
 ```
 {
+			"name": "Find all Privileged Service Principals",
+			"category": "Azure - Service Principals",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p = (g:AZServicePrincipal)-[r]->(n) RETURN p"
+				}
+			]
+		},
+{
 			"name": "Shortest path from Owned Azure Users to all Service Principals",
-			"category": "Azure",
+			"category": "Azure - Service Principals",
 			"queryList": [
 				{
 					"final": true,
@@ -58,7 +84,7 @@
 		},
 		{
 			"name": "Shortest path from Owned Azure Users to all Service Principals that are Managed Identities",
-			"category": "Azure",
+			"category": "Azure - Service Principals",
 			"queryList": [
 				{
 					"final": true,
@@ -69,7 +95,7 @@
 		},
 		{
 			"name": "Shortest path from ALL Azure Users to all Service Principals that are Managed Identities",
-			"category": "Azure",
+			"category": "Azure - Service Principals",
 			"queryList": [
 				{
 					"final": true,
@@ -80,7 +106,7 @@
 		},
 		{
 			"name": "List all Azure Service Principals",
-			"category": "Azure",
+			"category": "Azure - Service Principals",
 			"queryList": [
 				{
 					"final": true,
@@ -91,7 +117,7 @@
 		},
 		{
 			"name": "List all Azure Service Principals that are Managed Identities",
-			"category": "Azure",
+			"category": "Azure - Service Principals",
 			"queryList": [
 				{
 					"final": true,
@@ -102,7 +128,7 @@
 		},
 		{
 			"name": "Shortest Path from owned Azure Users to Azure VMs",
-			"category": "Azure",
+			"category": "Azure - Service Principals",
 			"queryList": [
 				{
 					"final": true,
@@ -112,4 +138,53 @@
 			]
 		},
 
+```
+
+### AADConnect related stuff
+
+```
+{
+			"name": "List all users possibly related to AADConnect",
+			"category": "Azure - AADConnect",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (u) WHERE (u:User OR u:AZUser) AND (u.name =~ '(?i)^MSOL_|.*AADConnect.*' OR u.userprincipalname =~ '(?i)^sync_.*') OPTIONAL MATCH (u)-[:HasSession]->(s:Session) RETURN u, s",
+					"allowCollapse": true
+				}
+			]
+		},
+{
+			"name": "Return all Sessions of possibly AADConnect related Accounts",
+			"category": "Azure - AADConnect",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p=(m:Computer)-[:HasSession]->(n) WHERE (n:User OR n:AZUser) AND ((n.name =~ '(?i)^MSOL_|.*AADConnect.*') OR (n.userPrincipalName =~ '(?i)^sync_.*')) RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
+		{
+			"name": "Return all AADConnect Servers (extracted from the SYNC_ Account names)",
+			"category": "Azure - AADConnect",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (n:AZUser) WHERE n.name =~ '(?i)^SYNC_(.*?)_(.*?)@.*' WITH n, split(n.name, '_')[1] AS computerNamePattern MATCH (c:Computer) WHERE c.name CONTAINS computerNamePattern RETURN c",
+					"allowCollapse": true
+				}
+			]
+		},
+		{
+			"name": "Shortest Path to AADConnect Servers from owned Users",
+			"category": "Azure - AADConnect",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (n:AZUser) WHERE n.name =~ '(?i)^SYNC_(.*?)_(.*?)@.*' WITH n, split(n.name, '_')[1] AS computerNamePattern MATCH (c:Computer) WHERE c.name CONTAINS computerNamePattern WITH collect(c) AS computers MATCH p = shortestPath((u:User)-[*]-(c:Computer)) WHERE c IN computers AND length(p) > 0 AND u.owned = true RETURN u, p",
+					"allowCollapse": true
+				}
+			]
+		},
 ```
