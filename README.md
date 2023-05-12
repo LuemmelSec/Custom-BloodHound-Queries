@@ -144,7 +144,7 @@
 
 ```
 {
-			"name": "List all users possibly related to AADConnect",
+			"name": "List users possibly related to AADConnect",
 			"category": "Azure - AADConnect",
 			"queryList": [
 				{
