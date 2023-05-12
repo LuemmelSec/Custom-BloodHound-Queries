@@ -127,17 +127,6 @@
 			]
 		},
 		{
-			"name": "Shortest Path from owned Azure Users to Azure VMs",
-			"category": "Azure - Service Principals",
-			"queryList": [
-				{
-					"final": true,
-					"query": "MATCH (n:AZVM) MATCH p = shortestPath((m:AZUser{owned: true})-[*..]->(n)) RETURN p",
-					"allowCollapse": true
-				}
-			]
-		},
-		{
 			"name": "Return all VMs with a tied Managed Identity",
 			"category": "Azure - Service Principals",
 			"queryList": [
