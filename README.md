@@ -86,6 +86,26 @@
 				}
 			]
 		},
+		{
+			"name": "Return all principals with the UserAccessAdministrator Role against Subscriptions",
+			"category": "Azure - General",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p = (u)-[r:AZUserAccessAdministrator]->(n:AZSubscription) RETURN p"
+				}
+			]
+		},
+		{
+			"name": "Return all prinicpals with the UserAccessAdministrator Role",
+			"category": "Azure - General",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p = (u)-[r:AZUserAccessAdministrator]->(n) RETURN p"
+				}
+			]
+		},
 ```
 
 ### Attack Paths
