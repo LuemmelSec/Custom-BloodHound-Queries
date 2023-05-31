@@ -66,6 +66,26 @@
 				}
 			]
 		},
+		{
+			"name": "Return all Azure Subscriptions",
+			"category": "Azure - General",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (n:AZSubscription) RETURN n"
+				}
+			]
+		},
+		{
+			"name": "Return all Azure Subscriptions and their direct Controllers",
+			"category": "Azure - General",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p = (n)-[r:AZOwns|AZUserAccessAdministrator]->(g:AZSubscription) RETURN p"
+				}
+			]
+		},
 ```
 
 ### Attack Paths
@@ -82,13 +102,24 @@
 				}
 			]
 		},
-        {
+                {
 			"name": "Find OnPrem synced Users with Paths to High Value Targets",
 			"category": "Azure - Paths",
 			"queryList": [
 				{
 					"final": true,
 					"query": "MATCH (m:AZUser WHERE m.onpremisesyncenabled = true),(n {highvalue:true}),p=shortestPath((m)-[r*1..]->(n)) WHERE NONE (r IN relationships(p) WHERE type(r)= \"GetChanges\") AND NONE (r in relationships(p) WHERE type(r)=\"GetChangesAll\") AND NOT m=n RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
+		{
+			"name": "Find shortest Paths to High Value Roles",
+			"category": "Azure - Paths",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (n:AZRole WHERE n.displayname =~ '(?i)Global Administrator|User Administrator|Cloud Application Administrator|Authentication Policy Administrator|Exchange Administrator|Helpdesk Administrator|PRIVILEGED AUTHENTICATION ADMINISTRATOR'), (m), p=shortestPath((m)-[r*1..]->(n)) WHERE NOT m=n RETURN p",
 					"allowCollapse": true
 				}
 			]
@@ -137,6 +168,17 @@
 		},
 		{
 			"name": "Find all Paths to Azure KeyVaults from Owned Principals",
+			"category": "Azure - Paths",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p = ({owned: true})-[r]->(g:AZKeyVault) RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
+		{
+			"name": "Find shortest Paths to Azure Subscriptions",
 			"category": "Azure - Paths",
 			"queryList": [
 				{
