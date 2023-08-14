@@ -339,6 +339,17 @@
 				}
 			]
 		},
+         {
+			"name": "Return all Azure Service Principals that are tied to Apps",
+			"category": "Azure - Service Principals",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (sp:AZServicePrincipal {serviceprincipaltype: 'Application'}) RETURN sp",
+					"allowCollapse": true
+				}
+			]
+		},
         {
 			"name": "Find all Azure Privileged Service Principals",
 			"category": "Azure - Service Principals",
