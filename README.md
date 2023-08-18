@@ -21,7 +21,7 @@
 			"queryList": [
 				{
 					"final": true,
-					"query": "MATCH p=(n)-[:AZHasRole|AZMemberOf*1..2]->(r:AZRole WHERE r.displayname =~ '(?i)Global Administrator|User Administrator|Cloud Application Administrator|Authentication Policy Administrator|Exchange Administrator|Helpdesk Administrator|PRIVILEGED AUTHENTICATION ADMINISTRATOR|Domain Name Administrator|Hybrid Identity Administrator|External Indentity Provider Administrator') RETURN p"
+					"query": "MATCH p=(n)-[:AZHasRole|AZMemberOf*1..2]->(r:AZRole WHERE r.displayname =~ '(?i)Global Administrator|User Administrator|Cloud Application Administrator|Authentication Policy Administrator|Exchange Administrator|Helpdesk Administrator|PRIVILEGED AUTHENTICATION ADMINISTRATOR|Domain Name Administrator|Hybrid Identity Administrator|External Identity Provider Administrator') RETURN p"
 				}
 			]
 		},
