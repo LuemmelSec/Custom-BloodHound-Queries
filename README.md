@@ -176,6 +176,16 @@
 			]
 		},
 		{
+			"name": "Find shortest Paths from Azure Users to Subscriptions",
+			"category": "Azure - Paths",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH (n:AZUser) WITH n MATCH p = shortestPath((n)-[r*1..]->(g:AZSubscription)) RETURN p"
+				}
+			]
+		},
+		{
 			"name": "Find all Paths to Azure VMs",
 			"category": "Azure - Paths",
 			"queryList": [
