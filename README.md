@@ -328,6 +328,17 @@
 				}
 			]
 		},
+	{
+			"name": "Return all PRIVILEGED Azure Service Principals",
+			"category": "Azure - Service Principals",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p=(n:AZServicePrincipal)-[:AZHasRole|AZMemberOf*1..2]->(r:AZRole) WHERE r.displayname =~ '(?i)Global Administrator|User Administrator|Cloud Application Administrator|Authentication Policy Administrator|Exchange Administrator|Helpdesk Administrator|PRIVILEGED AUTHENTICATION ADMINISTRATOR|Domain Name Administrator|Hybrid Identity Administrator|External Identity Provider Administrator|Privileged Role Administrator|Partner Tier2 Support' RETURN p",
+					"allowCollapse": true
+				}
+			]
+		},
         {
 			"name": "Find all VMs with a tied Managed Identity",
 			"category": "Azure - Service Principals",
