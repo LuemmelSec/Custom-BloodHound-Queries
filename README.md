@@ -36,6 +36,16 @@
 				}
 			]
 		},
+		{
+			"name": "Return all Owners of Privileged Groups that are synced from OnPrem AD",
+			"category": "Azure - General",
+			"queryList": [
+				{
+					"final": true,
+					"query": "MATCH p = (u:AZUser)-[r:AZOwns]->(g:AZGroup) WHERE NOT (u)-[:AZMemberOf|AZHasRole*1..]->(:AZRole) AND (g)-[:AZMemberOf|AZHasRole*1..]->(:AZRole) AND u.onpremisesyncenabled RETURN p"
+				}
+			]
+		},
         {
 			"name": "Return all Azure Users that are synced from OnPrem AD",
 			"category": "Azure - General",
