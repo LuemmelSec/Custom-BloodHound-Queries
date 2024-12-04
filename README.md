@@ -1,4 +1,12 @@
 # Collection of custom BloodHound queries
+## Legacy stuff
+
+```
+Domain Admin to OU mapping
+MATCH p = (n:Domain)-[:Contains*1..]->(u:User)-[:MemberOf*1..]->(g:Group)
+WHERE g.name CONTAINS "DOMAIN ADMINS@"
+RETURN p
+```
 
 ## New Azure stuff
 
